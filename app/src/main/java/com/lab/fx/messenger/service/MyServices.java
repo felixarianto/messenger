@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.lab.fx.library.db.DB;
+import com.lab.fx.messenger.conversation.MessageDB;
 import com.lab.fx.messenger.person.PersonDB;
 
 /**
@@ -51,6 +52,7 @@ public class MyServices extends IntentService {
             @Override
             public void onCreate(SQLiteDatabase p_sqlite) {
                 p_sqlite.execSQL(PersonDB.CREATE);
+                p_sqlite.execSQL(MessageDB.CREATE);
             }
 
             @Override
