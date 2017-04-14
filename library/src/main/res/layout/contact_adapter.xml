@@ -23,7 +23,7 @@
     <View
         android:id="@+id/center"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="5px"
         android:layout_toRightOf="@+id/img_1"
         android:layout_toEndOf="@+id/img_1"
         android:layout_centerVertical="true"

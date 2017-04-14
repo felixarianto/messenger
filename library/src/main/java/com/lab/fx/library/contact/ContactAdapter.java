@@ -1,13 +1,15 @@
-package com.lab.fx.library.conversation;
+package com.lab.fx.library.contact;
 
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab.fx.library.R;
@@ -19,22 +21,22 @@ import java.util.ArrayList;
  * Created by febri on 11/04/17.
  */
 
-public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.Holder> {
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Holder> {
 
     private final ArrayList<String[]> mData = new ArrayList<>();
     private final Context mContext;
-    public ConversationAdapter(Context p_context) {
+    public ContactAdapter(Context p_context) {
         mContext = p_context;
     }
 
     @Override
-    public ConversationAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.contact_adapter, parent, false);
-        return new ConversationAdapter.Holder(view);
+        return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(ConversationAdapter.Holder holder, int position) {
+    public void onBindViewHolder(ContactAdapter.Holder holder, int position) {
         String[] data = mData.get(position);
         Bitmap bitmap = MediaUtil.getImage(mContext, data.length > 0 ? data[0] : null);
         if (bitmap != null) {

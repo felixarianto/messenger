@@ -1,12 +1,7 @@
 <resources>
     <string name="app_name">library</string>
-    <color name="header">#118906</color>
-    <color name="background">#FFf1f5f7</color>
-    <color name="text_h1">#FF202020</color>
-    <color name="text_h2">#FF646464</color>
-    <color name="text_content">#8b8b8b</color>
-    <dimen name="text_h1">14sp</dimen>
-    <dimen name="text_h2">12sp</dimen>
-    <dimen name="text_content">10sp</dimen>
-    <dimen name="text_small">8sp</dimen>
+    <dimen name="text_h1">18sp</dimen>
+    <dimen name="text_h2">16sp</dimen>
+    <dimen name="text_content">14sp</dimen>
+    <dimen name="text_small">10sp</dimen>
 </resources>
