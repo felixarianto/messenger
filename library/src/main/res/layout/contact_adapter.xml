@@ -16,7 +16,7 @@
         android:contentDescription="@string/app_name"
         android:layout_marginRight="@dimen/adapter_padding"
         android:layout_marginEnd="@dimen/adapter_padding"
-        android:background="@drawable/oval_grey_solid"
+        android:background="@drawable/oval_thumb_bg_solid"
         android:padding="@dimen/adapter_padding"
         />
 

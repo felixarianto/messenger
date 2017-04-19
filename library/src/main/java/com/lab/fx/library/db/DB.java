@@ -10,7 +10,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public abstract class DB<T extends DBHolder> {
+public abstract class DB {
 	
 	private static final String TAG = "DB";
     

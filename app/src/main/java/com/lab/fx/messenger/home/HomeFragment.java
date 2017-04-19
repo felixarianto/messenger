@@ -3,7 +3,6 @@ package com.lab.fx.messenger.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.lab.fx.library.conversation.ConversationAdapter;
 import com.lab.fx.messenger.R;
-import com.lab.fx.messenger.dummy.DummyContent;
 import com.lab.fx.messenger.dummy.DummyContent.DummyItem;
 
 /**
@@ -23,8 +21,6 @@ import com.lab.fx.messenger.dummy.DummyContent.DummyItem;
  */
 public class HomeFragment extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 2;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -34,34 +30,25 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static HomeFragment newInstance(int columnCount) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
-    private ConversationAdapter mConversationAdapter;
+    private ConversationAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_home_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mConversationAdapter = new ConversationAdapter(view.getContext());
-
-
-        view.setAdapter(mConversationAdapter);
+        view.setAdapter(mAdapter = new HomeRecyclerViewAdapter(view.getContext()));
+        mAdapter.add("", "Diana Fianty",        "Good luck bro",    "14:00", "", "sent");
+        mAdapter.add("", "Febri Arianto",       "Im late, plz dont come early", "13:50", "1");
+        mAdapter.add("", "Rohmat Julianto",     "Im sorry bos",     "13:40", "10");
+        mAdapter.add("", "Khanza Adelia",       "Have you buy ticket",  "12:33", "", "read");
+        mAdapter.add("", "Danis Alvaro",        "Look for this one dude :)",    "10:11", "", "deliver");
+        mAdapter.add("", "Mark Zukenberg",      "Not for sale sob",     "10:12", "", "send");
+        mAdapter.add("", "Nada Nabila Azzahra", "Hey we gotta hang out right?", "09:04", "99⁺");
         return view;
     }
 

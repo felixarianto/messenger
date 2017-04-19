@@ -3,5 +3,7 @@
     <dimen name="adapter">80dp</dimen>
     <dimen name="adapter_thumb">50dp</dimen>
     <dimen name="adapter_padding">10dp</dimen>
+    <dimen name="unread_drawable">20dp</dimen>
+    <dimen name="text_padding">5dp</dimen>
     <color name="adapter_line">#ffafb2b4</color>
 </resources>
