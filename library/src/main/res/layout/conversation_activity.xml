@@ -22,13 +22,14 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/action"
         android:gravity="bottom"
-        android:background="@drawable/conversation_composer_bg"
+        android:background="@drawable/composer_bg"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:padding="8dp"
             android:src="@drawable/emotion"
             android:scaleType="centerInside"
             />
@@ -36,7 +37,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="45dp"
             android:overScrollMode="never"
+            android:background="@android:color/transparent"
             android:hint="@string/conversation_hint"/>
 
         <ImageButton
@@ -47,18 +50,20 @@
 
     <ImageView
         android:id="@+id/action"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_send"
+        android:src="@drawable/ic_send_white"
         android:background="@drawable/oval_accent_solid"
-        android:padding="@dimen/adapter_padding"
+        android:paddingLeft="10dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:scaleType="centerInside"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="3dp"
         />
 
 </RelativeLayout>
