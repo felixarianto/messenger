@@ -22,28 +22,23 @@ import java.util.ArrayList;
  * Created by febri on 11/04/17.
  */
 
-public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.Holder> {
+public class ConversationPreviewAdapter extends RecyclerView.Adapter<ConversationPreviewAdapter.Holder> {
 
     private final ArrayList<String[]> mData = new ArrayList<>();
     private final Context mContext;
-    public ConversationAdapter(Context p_context) {
+    public ConversationPreviewAdapter(Context p_context) {
         mContext = p_context;
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    @Override
-    public ConversationAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ConversationPreviewAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_preview_adapter, parent, false);
-        return new ConversationAdapter.Holder(view);
+        return new ConversationPreviewAdapter.Holder(view);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
-    public void onBindViewHolder(ConversationAdapter.Holder holder, int position) {
+    public void onBindViewHolder(ConversationPreviewAdapter.Holder holder, int position) {
         String[] data = mData.get(position);
         Bitmap bitmap = MediaUtil.getImage(mContext, data.length > 0 ? data[0] : null);
         if (bitmap != null) {
