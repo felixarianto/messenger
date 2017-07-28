@@ -1,61 +1,34 @@
 package com.lab.fx.messenger;
 
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.lab.fx.messenger.dummy.DummyContent;
+import com.lab.fx.messenger.flixgw.PendingFragment;
+import com.lab.fx.messenger.flixgw.ProfileFragment;
+import com.lab.fx.messenger.flixgw.SentFragment;
 import com.lab.fx.messenger.home.HomeFragment;
 import com.lab.fx.messenger.notif.NotifFragment;
 import com.lab.fx.messenger.person.PersonFragment;
 import com.lab.fx.messenger.service.MyServices;
 
-public class MainActivity extends AppCompatActivity implements PersonFragment.OnListFragmentInteractionListener
-        , HomeFragment.OnListFragmentInteractionListener
-        , NotifFragment.OnListFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements
+          PendingFragment.OnListFragmentInteractionListener
+        , SentFragment.OnListFragmentInteractionListener
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ProgressDialog progress = new ProgressDialog(this);
-        progress.setMax(1000);
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                MyServices.create(MainActivity.this);
-                int sleep = 0;
-                while (!MyServices.isReady()) {
-                    try {
-                        sleep += 100;
-                        publishProgress(sleep);
-                        Thread.sleep(sleep > 1000 ? 1000 : sleep);
-                    } catch (Exception e) {
-                    }
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                if (MyServices.isReady()) {
-                    progress.cancel();
-                    createView();
-                }
-            }
-
-            @Override
-            protected void onProgressUpdate(Object[] values) {
-                progress.setProgress((int) values[0]);
-            }
-        }.execute();
-        progress.show();
+        createView();
     }
 
     private void createView() {
@@ -71,23 +44,26 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.On
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_friend:
+                    case R.id.profile:
                         getSupportFragmentManager().beginTransaction()
                                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                                .replace(R.id.content, new PersonFragment())
+                                .replace(R.id.content, new ProfileFragment())
                                 .commit();
+                        setTitle("Profil");
                         return true;
-                    case R.id.navigation_chat:
+                    case R.id.pending:
                         getSupportFragmentManager().beginTransaction()
                                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                                .replace(R.id.content, new HomeFragment())
+                                .replace(R.id.content, new PendingFragment())
                                 .commit();
+                        setTitle("Pending (11)");
                         return true;
-                    case R.id.navigation_notifications:
+                    case R.id.sent:
                         getSupportFragmentManager().beginTransaction()
                                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                                .replace(R.id.content, new NotifFragment())
+                                .replace(R.id.content, new SentFragment())
                                 .commit();
+                        setTitle("Sent (7)");
                         return true;
                 }
                 return false;

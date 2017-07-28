@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.lab.fx.library.R;
 import com.lab.fx.library.util.MediaUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +38,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @Override
     public ConversationAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_preview_adapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_adapter, parent, false);
         return new ConversationAdapter.Holder(view);
     }
 
@@ -45,26 +46,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     @Override
     public void onBindViewHolder(ConversationAdapter.Holder holder, int position) {
         String[] data = mData.get(position);
-        Bitmap bitmap = MediaUtil.getImage(mContext, data.length > 0 ? data[0] : null);
-        if (bitmap != null) {
-            holder.img_1.setImageBitmap(bitmap);
-        }
-        else {
-            holder.img_1.setImageResource(R.drawable.ic_person_white);
-        }
-        holder.txt_1.setText(data.length > 1 ? data[1] : "");
-        holder.txt_2.setText(data.length > 2 ? data[2] : "");
-        holder.txt_3.setText(data.length > 3 ? data[3] : "");
-
-        if (data.length > 4 && data[4] != null && !data[4].equals("")) {
-            holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.color_accent));
-            holder.txt_4.setVisibility(View.VISIBLE);
-            holder.txt_4.setText(data[4]);
-        }
-        else {
-            holder.txt_3.setTextColor(mContext.getResources().getColor(R.color.text_content));
-            holder.txt_4.setVisibility(View.GONE);
-        }
+        holder.txt_1.setText(data.length > 0 ? data[0] : "");
+        holder.txt_3.setText(data.length > 1 ? data[1] : "");
 
         Drawable drawable_left = null;
         if (data.length > 5) {
@@ -85,8 +68,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_failed, R.dimen.text_content);
             }
         }
-        holder.txt_2.setCompoundDrawables(drawable_left, null, null, null);
-        holder.txt_2.setCompoundDrawablePadding(toDIP(1));
+        holder.txt_3.setCompoundDrawables(drawable_left, null, null, null);
+        holder.txt_3.setCompoundDrawablePadding(toDIP(1));
     }
 
     protected final int toDIP(float p_value) {

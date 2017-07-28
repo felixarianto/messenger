@@ -6,10 +6,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/conversation_bg">
 
+    <LinearLayout
+        android:id="@+id/ly_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#99ffffff"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="To:"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:inputType="phone"/>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/ly_1"
         android:layout_above="@+id/composer"
         />
 
@@ -20,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/action"
+        android:layout_toLeftOf="@+id/send"
         android:gravity="bottom"
         android:background="@drawable/composer_bg"
         android:layout_marginLeft="5dp"
@@ -35,6 +62,7 @@
             />
 
         <EditText
+            android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
@@ -48,8 +76,9 @@
             />
     </LinearLayout>
 
+
     <ImageView
-        android:id="@+id/action"
+        android:id="@+id/send"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"

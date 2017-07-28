@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgPrimary">
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="@style/textH1"
+        android:textColor="@color/white"
+        android:text="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textH2"
+        android:layout_below="@+id/appname"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="Gunakan aplikasi terbaik untuk mendukung penjualan produk Anda"/>
+
+
+    <TextView
+        android:id="@+id/connecting"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@drawable/square_button_secondary"
+        android:layout_below="@+id/content"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="Menyambungkan..."
+        style="@style/textH2"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/layout_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:paddingTop="100dp"
+        android:background="@drawable/square_button_secondary"
+        android:visibility="invisible">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/txt_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:ems="10"
+                android:hint="Nomor HP"
+                android:inputType="phone"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/txt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:ems="10"
+                android:hint="PIN"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="MASUK"
+            android:layout_weight="1"
+            style="@style/buttonPrimary"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/layout_login"
+        android:text="Belum Daftar gan?"
+        android:background="@color/bgPrimary"
+        style="@style/textH2"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:visibility="invisible"/>
+
+
+    <ImageView
+        android:id="@+id/thumb"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_logo"
+        android:layout_above="@+id/appname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"/>
+
+
+</RelativeLayout>

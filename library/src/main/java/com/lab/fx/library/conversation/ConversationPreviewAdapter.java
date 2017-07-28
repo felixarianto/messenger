@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class ConversationPreviewAdapter extends RecyclerView.Adapter<ConversationPreviewAdapter.Holder> {
 
-    private final ArrayList<String[]> mData = new ArrayList<>();
+    protected final ArrayList<String[]> mData = new ArrayList<>();
     private final Context mContext;
     public ConversationPreviewAdapter(Context p_context) {
         mContext = p_context;

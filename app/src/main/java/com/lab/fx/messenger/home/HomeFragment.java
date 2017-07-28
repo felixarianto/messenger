@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lab.fx.library.conversation.ConversationAdapter;
+import com.lab.fx.library.conversation.ConversationPreviewAdapter;
 import com.lab.fx.messenger.R;
 import com.lab.fx.messenger.dummy.DummyContent.DummyItem;
 
@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    private ConversationAdapter mAdapter;
+    private ConversationPreviewAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
