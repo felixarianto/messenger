@@ -3,20 +3,20 @@ package com.lab.fx.library.conversation;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.util.TimeUtils;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lab.fx.library.R;
+import com.lab.fx.library.contact.Mine;
 import com.lab.fx.library.util.MediaUtil;
+import com.lab.fx.library.util.TimeUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -25,66 +25,23 @@ import java.util.ArrayList;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.Holder> {
 
-    private final ArrayList<String[]> mData = new ArrayList<>();
+    private final ArrayList<MessageHolder> mData = new ArrayList<>();
     private final Context mContext;
     public ConversationAdapter(Context p_context) {
         mContext = p_context;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
+    public static class Holder extends RecyclerView.ViewHolder {
 
-    @Override
-    public ConversationAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_adapter, parent, false);
-        return new ConversationAdapter.Holder(view);
-    }
+        public TextView  title;
+        public TextView  content;
+        public TextView  time;
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @Override
-    public void onBindViewHolder(ConversationAdapter.Holder holder, int position) {
-        String[] data = mData.get(position);
-        holder.txt_1.setText(data.length > 0 ? data[0] : "");
-        holder.txt_3.setText(data.length > 1 ? data[1] : "");
-
-        Drawable drawable_left = null;
-        if (data.length > 5) {
-            String status = data[5];
-            if (status.equals("send")) {
-                drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_sending, R.dimen.text_content);
-            }
-            else if (status.equals("sent")) {
-                drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_sent, R.dimen.text_content);
-            }
-            else if (status.equals("deliver")) {
-                drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_delivered, R.dimen.text_content);
-            }
-            else if (status.equals("read")) {
-                drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_read, R.dimen.text_content);
-            }
-            else if (status.equals("fail")) {
-                drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_failed, R.dimen.text_content);
-            }
-        }
-        holder.txt_3.setCompoundDrawables(drawable_left, null, null, null);
-        holder.txt_3.setCompoundDrawablePadding(toDIP(1));
-    }
-
-    protected final int toDIP(float p_value) {
-        return (int) ((p_value * mContext.getResources().getDisplayMetrics().density) + 0.5f);
-    }
-
-    public void add(String... p_item) {
-        mData.add(p_item);
-        notifyItemInserted(mData.size() - 1);
-    }
-
-    public void removeItem(int p_position) {
-        if (p_position > mData.size()) {
-            mData.remove(p_position);
-            notifyItemRemoved(p_position);
+        public Holder(View p_view) {
+            super(p_view);
+            title   = (TextView)  p_view.findViewById(R.id.title);
+            content = (TextView)  p_view.findViewById(R.id.content);
+            time    = (TextView)  p_view.findViewById(R.id.time);
         }
     }
 
@@ -93,22 +50,105 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         return mData.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
-
-        public ImageView img_1;
-        public TextView  txt_1;
-        public TextView  txt_2;
-        public TextView  txt_3;
-        public TextView  txt_4;
-
-        public Holder(View p_view) {
-            super(p_view);
-            img_1 = (ImageView) p_view.findViewById(R.id.img_1);
-            txt_1 = (TextView)  p_view.findViewById(R.id.txt_1);
-            txt_2 = (TextView)  p_view.findViewById(R.id.txt_2);
-            txt_3 = (TextView)  p_view.findViewById(R.id.txt_3);
-            txt_4 = (TextView)  p_view.findViewById(R.id.txt_4);
+    @Override
+    public int getItemViewType(int position) {
+        MessageHolder msg = mData.get(position);
+        if (msg.f_pin.equals(Mine.get().pin)) {
+            return 1;
         }
+        return 2;
+    }
+
+    @Override
+    public ConversationAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == 1) {
+            view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_adapter_left, parent, false);
+        }
+        else {
+            view = LayoutInflater.from(parent.getContext()) .inflate(R.layout.conversation_adapter_right, parent, false);
+        }
+        return new ConversationAdapter.Holder(view);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void onBindViewHolder(ConversationAdapter.Holder holder, int position) {
+        MessageHolder msg = mData.get(position);
+        holder.title  .setText(msg.f_pin);
+        holder.content.setText(msg.text);
+        holder.time   .setText(TimeUtil.toHour(msg.created_time));
+
+        if (msg.f_pin.equals(Mine.get().pin)) {
+            Drawable drawable_status = null;
+            if (msg.status.equals(MessageDB.STATUS_WAITING)) {
+                drawable_status = MediaUtil.getDrawable(mContext, R.drawable.message_status_sending, R.dimen.text_content);
+            }
+            else if (msg.status.equals(MessageDB.STATUS_SENT)) {
+                drawable_status = MediaUtil.getDrawable(mContext, R.drawable.message_status_sent, R.dimen.text_content);
+            }
+            else if (msg.status.equals(MessageDB.STATUS_DELIVERED)) {
+                drawable_status = MediaUtil.getDrawable(mContext, R.drawable.message_status_delivered, R.dimen.text_content);
+            }
+            else if (msg.status.equals(MessageDB.STATUS_READ)) {
+                drawable_status = MediaUtil.getDrawable(mContext, R.drawable.message_status_read, R.dimen.text_content);
+            }
+            else if (msg.status.equals(MessageDB.STATUS_FAILED)) {
+                drawable_status = MediaUtil.getDrawable(mContext, R.drawable.message_status_failed, R.dimen.text_content);
+            }
+            else {
+                holder.time.setText(msg.status + " " + holder.time.getText());
+            }
+            holder.time.setCompoundDrawables(drawable_status, null, null, null);
+        }
+
+    }
+
+
+    public void addAll(ArrayList<MessageHolder> p_holders) {
+        mData.addAll(p_holders);
+    }
+    public int add(MessageHolder p_holder) {
+        return update(1, p_holder);
+    }
+    public int update(MessageHolder p_holder) {
+        return update(2, p_holder);
+    }
+    public int remove(MessageHolder p_holder) {
+        return update(3, p_holder);
+    }
+
+    private synchronized int update(int state, MessageHolder p_holder) {
+        int index = -1;
+        for (int i = 0; i < mData.size(); i++) {
+            if (p_holder.message_id.equals(mData.get(i).message_id)) {
+                index = i;
+                break;
+            }
+        }
+        switch (state) {
+            case 1 : //ADD
+                if (index != -1) {
+                    mData.set(index, p_holder);
+                    notifyItemChanged(index);
+                }
+                else {
+                    mData.add(0, p_holder);
+                    notifyItemInserted(index = 0);
+                }
+                break;
+            case 2 : //UPDATE
+                if (index != -1) {
+                    mData.set(index, p_holder);
+                    notifyItemChanged(index);
+                }
+                break;
+            case 3 : //DELETE
+                mData.remove(index);
+                notifyItemRemoved(index);
+                break;
+        }
+        return index;
     }
 
 }

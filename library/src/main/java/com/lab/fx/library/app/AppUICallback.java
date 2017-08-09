@@ -5,5 +5,5 @@ package com.lab.fx.library.app;
  */
 
 public interface AppUICallback {
-    void incomingData(int p_incoming_id, Object p_data);
+    void incomingData(String p_code, Object p_data);
 }

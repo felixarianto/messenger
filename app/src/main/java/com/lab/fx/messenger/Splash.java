@@ -1,20 +1,17 @@
 package com.lab.fx.messenger;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
-import com.lab.fx.messenger.service.MyServices;
+import com.lab.fx.library.service.MyServices;
+import com.onesignal.OneSignal;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,12 +38,12 @@ public class Splash extends AppCompatActivity implements View.OnClickListener{
 
             @Override
             protected Object doInBackground(Object[] params) {
-                MyServices.create(Splash.this);
                 try { Thread.sleep(3000); } catch (Exception e) {}
                 int sleep = 0;
                 while (!MyServices.isReady()) {
                     try {
                         sleep += 100;
+                        Log.d(TAG, "sleep " + sleep);
                         publishProgress(sleep);
                         Thread.sleep(sleep > 1000 ? 1000 : sleep);
                     } catch (Exception e) {

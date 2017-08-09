@@ -2,12 +2,10 @@ package com.lab.fx.messenger.sender;
 
 import android.util.Log;
 
-import com.lab.fx.library.app.AppProcessor;
 import com.lab.fx.library.data.Message;
 import com.lab.fx.library.data.MessageKey;
-import com.lab.fx.messenger.service.MyServices;
+import com.lab.fx.library.service.MyServices;
 
-import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 

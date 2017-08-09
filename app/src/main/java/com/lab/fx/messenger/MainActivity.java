@@ -1,24 +1,15 @@
 package com.lab.fx.messenger;
 
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.lab.fx.messenger.dummy.DummyContent;
 import com.lab.fx.messenger.flixgw.PendingFragment;
 import com.lab.fx.messenger.flixgw.ProfileFragment;
 import com.lab.fx.messenger.flixgw.SentFragment;
-import com.lab.fx.messenger.home.HomeFragment;
-import com.lab.fx.messenger.notif.NotifFragment;
-import com.lab.fx.messenger.person.PersonFragment;
-import com.lab.fx.messenger.service.MyServices;
 
 public class MainActivity extends AppCompatActivity implements
           PendingFragment.OnListFragmentInteractionListener

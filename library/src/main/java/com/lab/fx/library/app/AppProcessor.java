@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public interface AppProcessor {
 
-    public String[] getCode();
+    public String[] getId();
     public void process(String p_code, Message p_message);
 
 }

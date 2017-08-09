@@ -5,7 +5,8 @@ package com.lab.fx.library.data;
  */
 
 public class MessageCode {
-    public final static String SMS_SEND = "sms_send";
-    public final static String SMS_DELIVER = "sms_deliver";
-    public final static String MSG_UPDATE = "msg_upd";
+    public final static String MSG = "sm";
+    public final static String MSG_UPDATE  = MSG + "_upd";
+    public final static String MSG_REQUEST = MSG + "_req";
+    public final static String MSG_SEND    = MSG + "_snd";
 }

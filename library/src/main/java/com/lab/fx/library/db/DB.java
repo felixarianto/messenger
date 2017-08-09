@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.lab.fx.library.model.Holder;
+
 import java.util.ArrayList;
 
 public abstract class DB {
@@ -89,7 +91,7 @@ public abstract class DB {
 	        return cursor;	
     	}
 	}
-    
+
     public final static int truncate(String p_table){
         synchronized (SYNC) {
             int truncate = -1;
@@ -128,8 +130,8 @@ public abstract class DB {
 	    	return update;
     	}
 	}
-	
-    public final static long[] insertTransaction(String p_table, ContentValues[] p_values, boolean p_replace) {
+
+    public static long[] insertTransaction(String p_table, ContentValues[] p_values, boolean p_replace) {
     	synchronized (SYNC) {
 	    	int length    = p_values == null ? 0 : p_values.length;
 			long[] result = new long[length];
@@ -160,7 +162,7 @@ public abstract class DB {
 	    	return result;
     	}
     }
-	
+
     public final static long insert(String p_table, ContentValues p_values, boolean p_replace) {
     	synchronized (SYNC) {
     		long insert = -1;

@@ -1,11 +1,10 @@
-package com.lab.fx.messenger.conversation;
+package com.lab.fx.library.conversation;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
 import com.lab.fx.library.db.DB;
-import com.lab.fx.library.db.DBHolder;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class MessageDB extends DB {
 
     public static final String FIELD_F_PIN = "f_pin";
     public static final String FIELD_L_PIN = "l_pin";
-    public static final String FIELD_GROUP = "group";
+    public static final String FIELD_GROUP_ID = "group_id";
 
     public static final String FIELD_TEXT  = "text";
     public static final String FIELD_IMAGE = "image";
@@ -41,7 +40,7 @@ public class MessageDB extends DB {
 
             "'f_pin' text," +
             "'l_pin' text," +
-            "'group' text," +
+            "'group_id' text," +
 
             "'text' TEXT," +
             "'image' TEXT," +
@@ -50,10 +49,23 @@ public class MessageDB extends DB {
             "'location' TEXT," +
             "'contact' TEXT)";
 
-    public static synchronized ArrayList<DBHolder> getRecords(String p_where) {
+    public static final String STATUS_WAITING   = "w";
+    public static final String STATUS_SENT      = "s";
+    public static final String STATUS_DELIVERED = "d";
+    public static final String STATUS_READ      = "r";
+    public static final String STATUS_FAILED    = "f";
+
+    public static synchronized MessageHolder getRecord(String p_where) {
+        ArrayList<MessageHolder> m = getRecords(p_where, null, "1");
+        if (!m.isEmpty()) {
+            return m.get(0);
+        }
+        return null;
+    }
+    public static synchronized ArrayList<MessageHolder> getRecords(String p_where) {
         return getRecords(p_where, FIELD_CREATED_TIME + " desc ", null);
     }
-    public static synchronized ArrayList<DBHolder> getRecords(String p_where, String p_orderBy, String p_limit) {
+    public static synchronized ArrayList<MessageHolder> getRecords(String p_where, String p_orderBy, String p_limit) {
         String[] fields = new String[]{
                 FIELD_ID,
                 FIELD_MESSAGE_ID,
@@ -61,7 +73,7 @@ public class MessageDB extends DB {
                 FIELD_STATUS,
                 FIELD_F_PIN,
                 FIELD_L_PIN,
-                FIELD_GROUP,
+                FIELD_GROUP_ID,
                 FIELD_TEXT,
                 FIELD_IMAGE,
                 FIELD_VIDEO,
@@ -71,15 +83,14 @@ public class MessageDB extends DB {
         };
         return getRecords(fields, p_where, null, p_orderBy, p_limit);
     }
-    public static synchronized ArrayList<DBHolder> getRecords(String[] p_fields, String p_where, String p_groupBy, String p_orderBy, String p_limit) {
-        ArrayList<DBHolder> records = new ArrayList<>();
+    public static synchronized ArrayList<MessageHolder> getRecords(String[] p_fields, String p_where, String p_groupBy, String p_orderBy, String p_limit) {
+        ArrayList<MessageHolder> records = new ArrayList<>();
         Cursor cursor = null;
         try {
             cursor = fetch(TABLE_NAME, p_fields, p_where, p_groupBy, p_orderBy, p_limit);
             if (cursor != null) {
-                ContentValues cv = new ContentValues();
                 while (cursor.moveToNext()) {
-                    records.add(new DBHolder(cursor));
+                    records.add(new MessageHolder(cursor));
                 }
             }
         } catch (Exception e) {
@@ -88,4 +99,21 @@ public class MessageDB extends DB {
         if (cursor != null) cursor.close();
         return records;
     }
+
+    public static int update(ContentValues p_values, String p_where) {
+        return update(TABLE_NAME, p_values, p_where);
+    }
+
+    public static long insert(ContentValues p_values) {
+        return insert(TABLE_NAME, p_values, true);
+    }
+
+    public static int delete(String p_where) {
+        return delete(TABLE_NAME, p_where);
+    }
+
+
+
+
+
 }

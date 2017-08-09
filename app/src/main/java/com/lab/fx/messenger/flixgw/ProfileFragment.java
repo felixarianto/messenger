@@ -3,8 +3,6 @@ package com.lab.fx.messenger.flixgw;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lab.fx.library.contact.ContactAdapter;
-import com.lab.fx.library.db.DBHolder;
 import com.lab.fx.messenger.R;
 import com.lab.fx.messenger.dummy.DummyContent.DummyItem;
-import com.lab.fx.messenger.person.PersonDB;
-
-import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.

@@ -50,6 +50,7 @@ public class PendingFragment extends Fragment {
         mAdapter.add("", "Danis Alvaro",      "BUY 1 GET 1 FREE untuk Koleksi Exit, Exit Girls dan Expand",    "10:11", "");
         mAdapter.add("", "085423445512",      "LOTTEMART RETAIL Pesta Elektronik - Electro Shock! periode 27-30 Juli 2017",     "10:12", "");
         mAdapter.add("", "089123445566",      "BESOK!!! Promo Launching Fuwa Pillow Cake", "09:04", "3");
+        mAdapter.add("", "081327529690",      "BESOK!!! Promo Launching Fuwa Pillow Cake", "09:04", "3");
         return view;
     }
 

@@ -1,4 +1,4 @@
-package com.lab.fx.messenger.person;
+package com.lab.fx.library.contact;
 
 import android.content.ContentValues;
 import android.database.Cursor;

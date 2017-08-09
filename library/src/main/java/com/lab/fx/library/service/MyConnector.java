@@ -1,4 +1,4 @@
-package com.lab.fx.messenger.service;
+package com.lab.fx.library.service;
 
 import android.util.Log;
 

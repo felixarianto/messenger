@@ -8,6 +8,7 @@
     <color name="white">#ffffff</color>
     <color name="text_h1">#405040</color>
     <color name="text_h2">#646464</color>
-    <color name="text_content">#8b8b8b</color>
+    <color name="text_content">#646464</color>
+    <color name="text_body">#000000</color>
     <color name="text_highlight">#abc7d4</color>
 </resources>
