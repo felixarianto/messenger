@@ -2,16 +2,15 @@ package com.lab.fx.messenger;
 
 import android.app.Application;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
+import com.lab.fx.library.app.App;
 import com.lab.fx.library.service.MyServices;
-import com.lab.fx.messenger.onesignal.WebViewer;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
 import com.onesignal.OneSignal.NotificationOpenedHandler;
-
-import org.json.JSONArray;
 
 /**
  * Created by febri on 08/08/17.
@@ -46,15 +45,19 @@ public class MainApp extends Application {
         @Override
         public void notificationOpened(OSNotificationOpenResult result) {
             try {
-                JSONArray data = new JSONArray(result.notification.payload.body);
-                String url = data.getString(3);
-                if (!url.startsWith("http://") && !url.startsWith("https://")){
-                    url = "http://" + url;
-                }
-                Log.d(TAG, "Load URL " + url);
-                Intent intent = new Intent(getApplicationContext(), WebViewer.class);
+//                JSONArray data = new JSONArray(result.notification.payload.body);
+//                String url = data.getString(3);
+//                if (!url.startsWith("http://") && !url.startsWith("https://")){
+//                    url = "http://" + url;
+//                }
+//                Log.d(TAG, "Load URL " + url);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("url", url);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             } catch (Exception e) {
                 Log.e(TAG, "", e);

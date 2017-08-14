@@ -3,5 +3,6 @@
     <declare-styleable name="app">
         <attr name="label" format="string" />
         <attr name="value" format="string" />
+        <attr name="thumb" format="integer" />
     </declare-styleable>
 </resources>

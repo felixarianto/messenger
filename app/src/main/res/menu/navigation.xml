@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item
-        android:id="@+id/sent"
-        android:icon="@drawable/ic_cloud_done"
-        android:title="Sent" />
+    <!--<item-->
+        <!--android:id="@+id/sent"-->
+        <!--android:icon="@drawable/ic_cloud_done"-->
+        <!--android:title="Sent" />-->
 
     <item
         android:id="@+id/pending"
         android:icon="@drawable/ic_cloud_upload"
-        android:title="Pending" />
+        android:title="Notification" />
 
     <item
         android:id="@+id/profile"

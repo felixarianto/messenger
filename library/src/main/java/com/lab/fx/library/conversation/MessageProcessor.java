@@ -16,7 +16,6 @@ import com.lab.fx.library.service.MyServices;
 
 public class MessageProcessor implements AppProcessor {
 
-    @Override
     public String[] getId() {
         return new String[]{MessageCode.MSG};
     }
@@ -25,8 +24,9 @@ public class MessageProcessor implements AppProcessor {
     public void process(String p_code, Message p_message) {
         switch (p_code) {
             case MessageCode.MSG_REQUEST:  msgRequest(p_code, p_message); break;
-            case MessageCode.MSG_UPDATE:   msgUpdate(p_code, p_message);  break;
-            case MessageCode.MSG_SEND:     msgSend(p_code, p_message);    break;
+            case MessageCode.MSG_UPDATE:   msgUpdate (p_code, p_message); break;
+            case MessageCode.MSG_SEND:     msgSend   (p_code, p_message); break;
+            case MessageCode.MSG_DELETE:   msgDelete (p_code, p_message); break;
         }
     }
 
@@ -41,6 +41,18 @@ public class MessageProcessor implements AppProcessor {
         int update = MessageDB.update(cvalues, MessageDB.FIELD_MESSAGE_ID + "='" + key_message_id + "'");
         if (update > 0) {
             App.postUI(p_code, MessageDB.getRecord(MessageDB.FIELD_MESSAGE_ID + "='" + key_message_id + "'"));
+        }
+    }
+
+    public void msgDelete(String p_code, Message p_message) {
+        String key_message_id = p_message.getString(MessageKey.MESSAGE_ID, "");
+        MessageHolder holder  = MessageDB.getRecord(MessageDB.FIELD_MESSAGE_ID + "='" + key_message_id + "'");
+        if (holder == null) {
+            return;
+        }
+        int update = MessageDB.delete(MessageDB.FIELD_MESSAGE_ID + "='" + key_message_id + "'");
+        if (update > 0) {
+            App.postUI(p_code, holder);
         }
     }
 

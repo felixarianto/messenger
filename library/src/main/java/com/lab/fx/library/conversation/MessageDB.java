@@ -112,7 +112,22 @@ public class MessageDB extends DB {
         return delete(TABLE_NAME, p_where);
     }
 
-
+    public static int count(String p_where) {
+        int count = 0;
+        Cursor cursor;
+        if (p_where != null) {
+            cursor = rawQuery("select COUNT(*) from " + TABLE_NAME + " where " + p_where);
+        }
+        else {
+            cursor = rawQuery("select COUNT(*) from " + TABLE_NAME);
+        }
+        if (cursor != null) {
+            if (cursor.moveToNext()) {
+                count = cursor.getInt(0);
+            }
+        }
+        return count;
+    }
 
 
 

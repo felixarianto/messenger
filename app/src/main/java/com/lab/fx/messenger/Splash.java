@@ -55,19 +55,9 @@ public class Splash extends AppCompatActivity implements View.OnClickListener{
 
             @Override
             protected void onPostExecute(Object o) {
-                if (MyServices.isLogin()) {
+                if (MyServices.isReady()) {
                     startActivity(new Intent(Splash.this, MainActivity.class));
                     finish();
-                }
-                else {
-                    if (MyServices.isReady()) {
-                        findViewById(R.id.connecting).setVisibility(View.GONE);
-                        findViewById(R.id.layout_login).setVisibility(View.VISIBLE);
-                        findViewById(R.id.register).setVisibility(View.VISIBLE);
-
-                        findViewById(R.id.signin).setOnClickListener(Splash.this);
-                        findViewById(R.id.register).setOnClickListener(Splash.this);
-                    }
                 }
             }
         }.execute();

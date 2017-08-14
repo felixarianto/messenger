@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class ConversationPreviewAdapter extends RecyclerView.Adapter<ConversationPreviewAdapter.Holder> {
 
-    protected final ArrayList<String[]> mData = new ArrayList<>();
-    private final Context mContext;
+    private final ArrayList<String[]> mData = new ArrayList<>();
+    protected final Context mContext;
     public ConversationPreviewAdapter(Context p_context) {
         mContext = p_context;
     }
@@ -64,7 +64,10 @@ public class ConversationPreviewAdapter extends RecyclerView.Adapter<Conversatio
         Drawable drawable_left = null;
         if (data.length > 5) {
             String status = data[5];
-            if (status.equals("send")) {
+            if (status == null) {
+
+            }
+            else if (status.equals("send")) {
                 drawable_left = MediaUtil.getDrawable(mContext, R.drawable.message_status_sending, R.dimen.text_content);
             }
             else if (status.equals("sent")) {
@@ -92,17 +95,36 @@ public class ConversationPreviewAdapter extends RecyclerView.Adapter<Conversatio
         mData.add(p_item);
         notifyItemInserted(mData.size() - 1);
     }
+    public void add(int p_position, String[] p_item) {
+        mData.add(p_position, p_item);
+        notifyItemInserted(p_position);
+    }
+
+    public void add(ArrayList<String[]> p_items) {
+        mData.addAll(p_items);
+        notifyDataSetChanged();
+    }
 
     public void removeItem(int p_position) {
-        if (p_position > mData.size()) {
-            mData.remove(p_position);
-            notifyItemRemoved(p_position);
+        if (p_position < 0 || p_position >= mData.size()) {
+            return;
         }
+        mData.remove(p_position);
+        notifyItemRemoved(p_position);
     }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public String[] getItem(int position) {
+        return mData.get(position);
+    }
+
+    public void setItem(int position, String[] data) {
+        mData.set(position, data);
+        notifyItemChanged(position);
     }
 
     public static class Holder extends RecyclerView.ViewHolder {

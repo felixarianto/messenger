@@ -8,6 +8,7 @@ import com.lab.fx.library.data.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
@@ -24,14 +25,14 @@ public class App {
      * UI Callback
      */
     private static Handler UI_HANDLER;
-    private static ArrayList<AppUICallback> UI_CALLBACKS = new ArrayList();
-    public  static void addUICallback(AppUICallback p_callback) {
-        Log.d(TAG, "addUICallback: " + (p_callback == null ? "EMPTY" : p_callback.getClass().getSimpleName()));
+    private static ConcurrentHashMap<String, AppUICallback> UI_CALLBACKS = new ConcurrentHashMap();
+    public  static void putUICallback(String p_id, AppUICallback p_callback) {
+        Log.d(TAG, "putUICallback: " + (p_callback == null ? "EMPTY" : p_callback.getClass().getSimpleName()));
         if (UI_HANDLER == null) {
             setUICallback(p_callback);
         }
         else {
-            UI_CALLBACKS.add(p_callback);
+            UI_CALLBACKS.put(p_id, p_callback);
         }
     }
     public  static void setUICallback(AppUICallback p_callback) {
@@ -41,13 +42,14 @@ public class App {
         if (p_callback == null) {
             return;
         }
-        UI_CALLBACKS.add(p_callback);
+        UI_CALLBACKS.put("APP", p_callback);
         UI_HANDLER  = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(android.os.Message msg) {
                 try {
                     Object[] m = (Object[]) msg.obj;
-                    for (AppUICallback callback : UI_CALLBACKS) {
+                    for (AppUICallback callback : UI_CALLBACKS.values()) {
+                        Log.d(callback.getClass().getSimpleName(), "incomingData: " + m[0] + "  "  + m[1]);
                         callback.incomingData((String) m[0], m[1]);
                     }
                 } catch (Exception e) {

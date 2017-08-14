@@ -84,6 +84,7 @@ public class MyServices extends IntentService {
     public void onCreate() {
         super.onCreate();
         try {
+            Log.d(this.getClass().getName(), "onCreate");
             CONTEXT = MyServices.this;
             create(CONTEXT);
             db();
@@ -99,9 +100,13 @@ public class MyServices extends IntentService {
         DB.setDatabaseListener(new DB.DatabaseListener() {
             @Override
             public void onCreate(SQLiteDatabase p_sqlite) {
-                p_sqlite.execSQL(PersonDB.CREATE);
-                p_sqlite.execSQL(MessageDB.CREATE);
-                p_sqlite.execSQL(PrefsDB.CREATE);
+                try {
+                    p_sqlite.execSQL(PersonDB.CREATE);
+                    p_sqlite.execSQL(MessageDB.CREATE);
+                    p_sqlite.execSQL(PrefsDB.CREATE);
+                } catch (Exception e) {
+                    Log.e(this.getClass().getName(), "onCreate DB", e);
+                }
             }
 
             @Override
@@ -201,7 +206,7 @@ public class MyServices extends IntentService {
         return false;
     }
 
-    final static String[] PERMISSIONS = {
+    public final static String[] PERMISSIONS = {
               Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS
             , Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS
             };

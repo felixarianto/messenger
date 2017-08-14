@@ -39,26 +39,41 @@ public class MessageHolder extends Holder {
     public boolean clone(Cursor p_cursor) {
         boolean cloned = false;
         try {
-            _id = p_cursor.getLong  (p_cursor.getColumnIndex(MessageDB.FIELD_ID));
-            message_id   = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_MESSAGE_ID));
-            created_time = p_cursor.getLong  (p_cursor.getColumnIndex(MessageDB.FIELD_CREATED_TIME));
-            status       = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_STATUS));
+            _id =          getLong(p_cursor, MessageDB.FIELD_ID);
+            message_id   = getString(p_cursor, MessageDB.FIELD_MESSAGE_ID);
+            created_time = getLong(p_cursor, MessageDB.FIELD_CREATED_TIME);
+            status       = getString(p_cursor, MessageDB.FIELD_STATUS);
 
-            f_pin = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_F_PIN));
-            l_pin = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_L_PIN));
-            group = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_GROUP_ID));
+            f_pin = getString(p_cursor, MessageDB.FIELD_F_PIN);
+            l_pin = getString(p_cursor, MessageDB.FIELD_L_PIN);
+            group = getString(p_cursor, MessageDB.FIELD_GROUP_ID);
 
-            text  = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_TEXT));
-            image = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_IMAGE));
-            video = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_VIDEO));
-            link  = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_LINK));
-            location = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_LOCATION));
-            contact  = p_cursor.getString(p_cursor.getColumnIndex(MessageDB.FIELD_CONTACT));
+            text  = getString(p_cursor, MessageDB.FIELD_TEXT);
+            image = getString(p_cursor, MessageDB.FIELD_IMAGE);
+            video = getString(p_cursor, MessageDB.FIELD_VIDEO);
+            link  = getString(p_cursor, MessageDB.FIELD_LINK);
+            location = getString(p_cursor, MessageDB.FIELD_LOCATION);
+            contact  = getString(p_cursor, MessageDB.FIELD_CONTACT);
             cloned = true;
         } catch (Exception e) {
             Log.e(getClass().getSimpleName(), "", e);
         }
         return cloned;
+    }
+
+    private long getLong(Cursor cursor, String p_column) {
+        int i = cursor.getColumnIndex(p_column);
+        if (i != -1) {
+            return cursor.getLong(i);
+        }
+        return 0;
+    }
+    private String getString(Cursor cursor, String p_column) {
+        int i = cursor.getColumnIndex(p_column);
+        if (i != -1) {
+            return cursor.getString(i);
+        }
+        return null;
     }
 
     @Override
@@ -104,5 +119,10 @@ public class MessageHolder extends Holder {
         values.put(MessageDB.FIELD_LOCATION, location);
         values.put(MessageDB.FIELD_CONTACT,  contact);
         return values;
+    }
+
+    @Override
+    public String toString() {
+        return toValues().toString();
     }
 }

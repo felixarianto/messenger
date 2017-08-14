@@ -220,7 +220,7 @@ public abstract class DB {
 			return result;
 		}
 	}
-	
+
 	public static interface DatabaseListener {
 		
 		void onCreate(SQLiteDatabase p_sqlite);
